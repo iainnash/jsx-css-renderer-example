@@ -21,9 +21,13 @@ function buildDOM() {
 const myRenderer = new Renderer(buildDOM, document.body);
 
 function ComposeStyle(props) {
-  return <background>red</background>;
+  return (
+    <rules for="">
+      <background>white</background>
+      <color>black</color>
+    </rules>
+  );
 }
-
 
 function buildStyles() {
   return (
@@ -38,12 +42,12 @@ function buildStyles() {
       <fontFamily>Helvetica</fontFamily>
       <padding animate=".2s">{`${-1*atStep*20+200}px`}</padding>
       <rules for=".text">
-        <background color="black" />
-        <color>#eee</color>
+        <ComposeStyle />
         <textAlign>center</textAlign>
         <userSelect>none</userSelect>
         <fontSize animate="3s">{`${atStep*10+20}pt`}</fontSize>
         <rules for=".hidiv">
+          <ComposeStyle />
           <left animate=".4s">{`${rand(10, 20)}px`}</left>
           <right animate=".2s">{`${rand(10, 20)}px`}</right>
           <padding>100px</padding>

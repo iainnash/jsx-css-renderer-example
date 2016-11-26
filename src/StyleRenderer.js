@@ -63,9 +63,8 @@ export class StyleRenderer {
       const out = newParents.join(' ') + '{' + propsText + '}';
       return [out, ...parts].join('\n');
     } else if (node.domObject) {
-      this.renderCSS(parents, node.render());
-    } else {
-      return renderTag(node.tagName, node.children, node.attributes);
+      return this.renderCSS(parents, node.domObject);
     }
+    return renderTag(node.tagName, node.children, node.attributes);
   }
 };

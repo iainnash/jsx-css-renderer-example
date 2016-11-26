@@ -1,12 +1,6 @@
 import {Component} from './Component';
 import flatishMap from './util/flatishMap';
 
-function isFunction(functionToCheck) {
- var getType = {};
- return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
-}
-
-
 const keyMapping = {
   className: 'class',
   style: (el, arg) => {
@@ -56,7 +50,6 @@ export class Renderer {
       return document.createTextNode(node);
     }
     const out = flatishMap(node, (nodePart) => {
-      console.log(nodePart);
       if (typeof(nodePart) === 'string' || typeof(nodePart) === 'number') {
         const s = document.createElement('span');
         s.innerHTML = nodePart;

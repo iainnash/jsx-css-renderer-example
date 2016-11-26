@@ -10,9 +10,9 @@ let atStep = 0;
 function buildDOM() {
   return (
     <div className="text">
-      <HeaderHi className="headerHi">
+      <HeaderHi step={atStep} className="headerHi">
         <div className="hidiv">Welcome to JSConf!</div>
-        <div className="step">At step<span>{atStep}</span></div>
+        <div className="step">size: <span>{atStep}</span></div>
       </HeaderHi>
     </div>
   );
@@ -20,14 +20,35 @@ function buildDOM() {
 
 const myRenderer = new Renderer(buildDOM, document.body);
 
+function ComposeStyle(props) {
+  return <background>red</background>;
+}
+
+
 function buildStyles() {
   return (
-    <rules for=".text">
-      <background color="orange" />
-      <userSelect>none</userSelect>
-      <fontSize>{`${atStep*10+10}pt`}</fontSize>
-      <rules for=".hidiv">
-        <margin animate=".5s">{`${rand(10, 20)}px`} 30px {`${rand(10, 20)}px`} 20px</margin>
+    <rules for="body">
+      <rules for="img">
+        <margin>0 auto</margin>
+        <display>block</display>
+        <paddingTop>50px</paddingTop>
+      </rules>
+      <background color="#eee" />
+      <fontSize>26pt</fontSize>
+      <fontFamily>Helvetica</fontFamily>
+      <padding animate=".2s">{`${-1*atStep*20+200}px`}</padding>
+      <rules for=".text">
+        <background color="black" />
+        <color>#eee</color>
+        <textAlign>center</textAlign>
+        <userSelect>none</userSelect>
+        <fontSize animate="3s">{`${atStep*10+20}pt`}</fontSize>
+        <rules for=".hidiv">
+          <left animate=".4s">{`${rand(10, 20)}px`}</left>
+          <right animate=".2s">{`${rand(10, 20)}px`}</right>
+          <padding>100px</padding>
+          <position>relative</position>
+        </rules>
       </rules>
     </rules>
   );

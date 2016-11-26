@@ -44,18 +44,23 @@ export class StyleRenderer {
       const newParents = [...parents, node.attributes.for];
       const res = flatishMap(node.children, (el) => this.renderCSS(newParents, el));
       const parts = [];
-      let out = '';
+      let propsOut = {};
       for (const elem of res) {
         if (typeof(elem) === 'string') {
           parts.push(elem);
         } else {
           const keys = Object.keys(elem);
           for (const key of keys) {
-            out += key + ': ' + elem[key] + ';\n';
+            if (key in propsOut) {
+              propsOut[key] += ', ' + elem[key];
+            } else {
+              propsOut[key] = elem[key];
+            }
           }
         }
       }
-      out = newParents.join(' ') + '{' + out + '}';
+      const propsText = Object.keys(propsOut).map((key) => key + ': ' + propsOut[key] + ';').join('\n');
+      const out = newParents.join(' ') + '{' + propsText + '}';
       return [out, ...parts].join('\n');
     } else if (node.domObject) {
       this.renderCSS(parents, node.render());
